@@ -12,7 +12,7 @@ data2$tf <- log(1+data2$count)
 #Calculate n value --> number of times a word appeared in all documents(across docs)
 data3 <-data
 nCount <- count(data3, "word")
-head(ncount, n=10)
+head(nCount, n=10)
 
 #Calculate idf for each word and assign it to new data frame 'idfData'
 nCount$idf <- log(1 + (N/nCount$freq))
