@@ -1,6 +1,8 @@
 library(plyr)
 library(sqldf)
 
+N <- 1500
+
 data <- read.csv('/Users/ramya/Documents/SMU/QTW/Week1/CaseStudy6_2/docword.nips.txt',sep = ' ', skip=3, header=F)
 colnames(data) <- c("doc","word", "count")
 head(data, n=10)
