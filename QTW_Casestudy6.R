@@ -33,3 +33,38 @@ head(tfidfdata,n=10)
 tfidfData <- tfidfdata[c(1,2,4,6,7)]
 head(tfidfData, n=10)
 
+tfidfDatafinal <- tfidfData[c(1,5)]
+head(tfidfDatafinal, n=10)
+
+set.seed(20)
+clusters <- kmeans(tfidfDatafinal, 5)
+
+# Save the cluster number in the dataset as column 'Borough'
+tfidfDatafinal$kcluster <- as.factor(clusters$cluster)
+head(tfidfDatafinal, n=10)
+
+tfidfDatafinal2 <- tfidfDatafinal[c(1,2)]
+str(clusters)
+
+#Used
+library(cluster)
+library(fpc)
+
+# Fig 01
+plotcluster(tfidfDatafinal[100, c(1,3)], clusters$cluster)
+
+# vary parameters for most readable graph
+library(cluster) 
+clusplot(tfidfDatafinal2, clusters$cluster, color=TRUE, shade=TRUE, 
+         labels=2, lines=0)
+
+#future use
+library(cluster)
+library(HSAUR)
+data(pottery)
+km    <- kmeans(pottery,3)
+dissE <- daisy(pottery) 
+dE2   <- dissE^2
+sk2   <- silhouette(km$cl, dE2)
+plot(sk2)
+
