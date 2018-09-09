@@ -23,7 +23,7 @@ head(nCount, n=10)
 idfData <- nCount
 head(idfData, n=10)
 
-tfidfdata <- merge(x = data2, y = idfData, by = "word", all = TRUE)
+tfidfdata <- merge(x = data, y = idfData, by = "word", all = TRUE)
 head(tfidfdata, n=10)
 
 #Calculate tf-idf scores per word per doc
