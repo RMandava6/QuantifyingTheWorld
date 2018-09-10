@@ -10,7 +10,7 @@ colnames(data) <- c("doc","word", "count")
 head(data, n=10)
 
 #Creating column tf and calculating the value for tf as ln(1+count)
-data$tf <- log(1+data2$count)
+data$tf <- log(1+data$count)
 head(data, n=10)
 
 #Calculate n value --> number of times a word appeared in all documents(across docs)
@@ -34,7 +34,7 @@ head(tfidfdata,n=10)
 tfidfData2 <- tfidfdata[c(1,2,4,6,7)]
 head(tfidfData2, n=10)
 
-tfidfDatafinal <- tfidfData2[c(1,5)]
+tfidfDatafinal <- tfidfData2[c(1,2,5)]
 head(tfidfDatafinal, n=10)
 
 #kmeans with 5 clusters
@@ -159,12 +159,65 @@ tfidfDatafinal4 <- tfidfDatafinal
 
 tfidfDatafinal4$kcluster <- as.factor(clusters1$cluster)
 head(tfidfDatafinal4, n=10)
+tail(tfidfDatafinal4, n=10)
 
-tfidfDatafinal4<-tfidfDatafinal4[c(1,3)]
-head(tfidfDatafinal4, n=10)
+dataTxtFinal <- merge(x = tfidfDatafinal4, y = dataTxt2, by = "word", all = FALSE)
+head(dataTxtFinal)
 
-tfidfDatafinal4 <- merge(x = tfidfdata, y = tfidfDatafinal4, by = "word", all = FALSE)
+#typeof(tfidfDatafinal4$kcluster)
+tfidfDatafinal4$kcluster<- as.numeric(tfidfDatafinal4$kcluster)
+hist(tfidfDatafinal4$kcluster, 
+     main="Hist", 
+     xlab="clusters", 
+     border="blue", 
+     col="green",
+     breaks=10)
 
-#dataTxt2
-tfidfdata3<-tfidfdata
-dataTxtFinal <- merge(x = tfidfdata3, y = dataTxt2, by = "word", all = FALSE)
+count1 <- count(tfidfDatafinal4, "word")
+count1<- count1[order(-count1$freq),]
+head(count1, n=10)
+
+dataTxtFinal2 <- merge(x = count1, y = dataTxtFinal, by = "word", all = FALSE)
+head(dataTxtFinal2, n=10)
+
+dataTxtFinal5 <- dataTxtFinal
+head(dataTxtFinal5, n=10)
+tail(dataTxtFinal5, n=10)
+
+#appending kcluster column to the dataset
+dataTxtFinal5$kcluster <- tfidfDatafinal4$kcluster
+head(dataTxtFinal5, n=10)
+
+clouddata <- dataTxtFinal4[dataTxtFinal4$kcluster == 5,]
+tail(clouddata, n=10)
+hist(clouddata$freq, 
+     main="Histogram for words", 
+     xlab="words", 
+     border="blue", 
+     col="green",
+     breaks=20)
+
+count1 <- count(clouddata, "word")
+count1<- count1[order(-count1$freq),]
+
+
+dataTxtcloud <- merge(x = count1, y = dataTxt2, by = "word", all = FALSE)
+dataTxtcloud<- dataTxtcloud[order(-dataTxtcloud$freq),]
+head(dataTxtcloud,n=30)
+
+
+set.seed(12345)
+wordcloud(words = dataTxtcloud$wordtext, freq = dataTxtcloud$freq, min.freq = 178000,
+          max.words=35, random.order=FALSE, rot.per=0.35, 
+          colors=brewer.pal(8, "Dark2"))
+
+typeof(tfidfDatafinal4$kcluster)
+tfidfDatafinal4$kcluster<- as.numeric(tfidfDatafinal4$kcluster)
+hist(tfidfDatafinal4$kcluster, 
+     main="Hist", 
+     xlab="clusters", 
+     border="blue", 
+     col="green",
+     breaks=10)
+
+cluster_words <- lapply(unique(clustering), function(x){rows <- dtm[ clustering == x , ]}
