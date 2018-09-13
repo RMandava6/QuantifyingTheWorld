@@ -43,7 +43,11 @@ dim(tfidf)
 tfidf2 <- tfidf
 tfidf[1:5, 1:5]
 dim(tfidf2)
-tfidf2 <- apply(tfidf[2:12376],1:2, function(x) log(1+x))
+
+tfidf3 <- apply(tfidf[2:12376],1:2, function(x) log(1+x))
+
+tfidf2[2:12376]<- tfidf3
+
 #tfidf2$docs <- tfidf[, 1]
 tfidf2[1:5, 1:5]
 #tfidf2$c.1.docs. <- seq.int(from=1, to=1500, by=1)
@@ -60,8 +64,29 @@ max(idf)
 
 head(idf)
 
-new_words<-dim(tfidf)[2] - 1
+new_words<-dim(tfidf2)[2] - 1
 new_words
 
 for (i in 1:new_words){
-  tfidf[,i+1] <- tfidf[,i+1] * idf[i]}
+  tfidf2[,i+1] <- tfidf2[,i+1] * idf[i]}
+
+tfidf2[1:5, 1:5]
+
+#kmeans 5
+set.seed(5)
+clusters1 <- kmeans(tfidf2, 5)
+
+tfidfFinal <- tfidf2[1]
+head(tfidfFinal)
+colnames(tfidfFinal) <- "doc"
+
+tfidfFinal$kcluster <- as.factor(clusters1$cluster)
+head(tfidfFinal, n=10)
+tail(tfidfFinal, n=10)
+
+clusplot(tfidfFinal, clusters1$cluster, color=TRUE, shade=TRUE, 
+         labels=2, lines=0, plotchar=TRUE, span=TRUE)
+
+#kmeans 10
+set.seed(5)
+clusters1 <- kmeans(tfidf2, 10)
