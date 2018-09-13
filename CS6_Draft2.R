@@ -188,6 +188,74 @@ wordcloud(words = wordcloud1$wordtext, freq = wordcloud1$freq, min.freq = 200,
           max.words=500, random.order=FALSE, rot.per=0.35, 
           colors=brewer.pal(8, "Dark2"))
 
+# Data cloud for cluster =4
+#Creating Data Cloud for 2nd cluster
+clouddata2<- clouddata[dataTxtFinal2$kcluster == 4,]
+tail(clouddata2, n=10)
+wordcloud1 <- sqldf("select max(freq) as freq, wordtext from clouddata2 group by wordtext order by freq desc")
+
+set.seed(1234)
+wordcloud(words = wordcloud1$wordtext, freq = wordcloud1$freq, min.freq = 200,
+          max.words=500, random.order=FALSE, rot.per=0.35, 
+          colors=brewer.pal(8, "Dark2"))
+
+# Data cloud for cluster =5
+#Creating Data Cloud for 2nd cluster
+clouddata2<- clouddata[dataTxtFinal2$kcluster == 5,]
+tail(clouddata2, n=10)
+wordcloud1 <- sqldf("select max(freq) as freq, wordtext from clouddata2 group by wordtext order by freq desc")
+
+set.seed(1234)
+wordcloud(words = wordcloud1$wordtext, freq = wordcloud1$freq, min.freq = 200,
+          max.words=500, random.order=FALSE, rot.per=0.35, 
+          colors=brewer.pal(8, "Dark2"))
+
+# Data cloud for cluster =6
+#Creating Data Cloud for 2nd cluster
+clouddata2<- clouddata[dataTxtFinal2$kcluster == 6,]
+tail(clouddata2, n=10)
+wordcloud1 <- sqldf("select max(freq) as freq, wordtext from clouddata2 group by wordtext order by freq desc")
+
+set.seed(1234)
+wordcloud(words = wordcloud1$wordtext, freq = wordcloud1$freq, min.freq = 200,
+          max.words=500, random.order=FALSE, rot.per=0.35, 
+          colors=brewer.pal(8, "Dark2"))
+
+# Data cloud for cluster =7
+#Creating Data Cloud for 2nd cluster
+clouddata2<- clouddata[dataTxtFinal2$kcluster == 7,]
+tail(clouddata2, n=10)
+wordcloud1 <- sqldf("select max(freq) as freq, wordtext from clouddata2 group by wordtext order by freq desc")
+
+set.seed(1234)
+wordcloud(words = wordcloud1$wordtext, freq = wordcloud1$freq, min.freq = 200,
+          max.words=500, random.order=FALSE, rot.per=0.35, 
+          colors=brewer.pal(8, "Dark2"))
+
+# Data cloud for cluster =8
+#Creating Data Cloud for 2nd cluster
+clouddata2<- clouddata[dataTxtFinal2$kcluster == 8,]
+tail(clouddata2, n=10)
+wordcloud1 <- sqldf("select max(freq) as freq, wordtext from clouddata2 group by wordtext order by freq desc")
+
+set.seed(1234)
+wordcloud(words = wordcloud1$wordtext, freq = wordcloud1$freq, min.freq = 200,
+          max.words=500, random.order=FALSE, rot.per=0.35, 
+          colors=brewer.pal(8, "Dark2"))
+
+
+# Data cloud for cluster =9
+#Creating Data Cloud for 2nd cluster
+clouddata2<- clouddata[dataTxtFinal2$kcluster == 9,]
+tail(clouddata2, n=10)
+wordcloud1 <- sqldf("select max(freq) as freq, wordtext from clouddata2 group by wordtext order by freq desc")
+
+set.seed(1234)
+wordcloud(words = wordcloud1$wordtext, freq = wordcloud1$freq, min.freq = 200,
+          max.words=500, random.order=FALSE, rot.per=0.35, 
+          colors=brewer.pal(8, "Dark2"))
+
+
 # Data cloud for cluster =10
 #Creating Data Cloud for 2nd cluster
 clouddata2<- clouddata[dataTxtFinal2$kcluster == 10,]
