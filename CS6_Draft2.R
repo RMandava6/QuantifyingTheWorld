@@ -88,5 +88,39 @@ clusplot(tfidfFinal, clusters1$cluster, color=TRUE, shade=TRUE,
          labels=2, lines=0, plotchar=TRUE, span=TRUE)
 
 #kmeans 10
-set.seed(5)
-clusters1 <- kmeans(tfidf2, 10)
+set.seed(10)
+clusters2 <- kmeans(tfidf2, 10)
+
+tfidfFinal2 <- tfidf2[1]
+head(tfidfFinal2)
+colnames(tfidfFinal2) <- "doc"
+
+tfidfFinal2$kcluster <- as.factor(clusters2$cluster)
+head(tfidfFinal2, n=10)
+tail(tfidfFinal2, n=10)
+
+clusplot(tfidfFinal2, clusters2$cluster, color=TRUE, shade=TRUE, 
+         labels=2, lines=0, plotchar=TRUE, span=TRUE)
+
+#kmeans 20
+set.seed(20)
+clusters3 <- kmeans(tfidf2, 20)
+
+tfidfFinal3 <- tfidf2[1]
+head(tfidfFinal3)
+colnames(tfidfFinal3) <- "doc"
+
+tfidfFinal3$kcluster <- as.factor(clusters3$cluster)
+head(tfidfFinal3, n=10)
+tail(tfidfFinal3, n=10)
+
+clusplot(tfidfFinal3, clusters3$cluster, color=TRUE, shade=TRUE, 
+         labels=2, lines=0, plotchar=TRUE, span=TRUE)
+
+#Reading vocab
+dataTxt <- read.csv('/Users/ramya/Documents/SMU/QTW/Week1/CaseStudy6_2/vocab.nips.txt',header=F)
+colnames(dataTxt) <- c("wordtext")
+head(dataTxt, n=10)
+
+dataTxt2 <-dataTxt
+dataTxt2$word <- seq.int(from=1, to=12419, by=1)
