@@ -109,6 +109,13 @@ tail(tfidfFinal2, n=10)
 clusplot(tfidfFinal2, clusters2$cluster, color=TRUE, shade=TRUE, 
          labels=2, lines=0, plotchar=TRUE, span=TRUE)
 
+hist(as.integer(tfidfFinal2$kcluster), 
+     main="Hist", 
+     xlab="Docs per clusters", 
+     border="blue", 
+     col="green",
+     breaks=10)
+
 #kmeans 20
 set.seed(20)
 clusters3 <- kmeans(tfidf2, 20)
