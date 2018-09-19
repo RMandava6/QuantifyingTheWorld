@@ -10,18 +10,16 @@ womenURLs =
     "results/2011/2011cucb10m-f.htm",
     "results/2012/2012cucb10m-f.htm")
 
-urls = paste(ubase, womenURLs, sep = "")
-
-urls[1:3]
-
+# http://www.cherryblossom.org/results/2000/Cb003f.htm
+#http://www.cherryblossom.org/results/2009/09cucb-F.htm
 
 urls = paste(ubase, womenURLs, sep = "")
 
 urls[1:3]
 
+urls
 
-
-extractResTablew =
+extractResTable =
   # takes a list of websites from the cherry blossom race
   # a list of years corresponding to the year the result is for
   # and the gender of the participant
@@ -40,37 +38,41 @@ extractResTablew =
       ff = getNodeSet(doc, "//font")
       txt = xmlValue(ff[[4]])
       els = strsplit(txt, "\r\n")[[1]]
+      print(year)
     }
-    else if (year == 2009 & sex == "female") {
+    #else if (year == 2009 & sex == "female") {
       # Get preformatted text from <div class="Section1"> element
       # Each line of results is in a <pre> element
-      div1 = getNodeSet(doc, "//div[@class='Section1']")
-      pres = getNodeSet(div1[[1]], "//pre")
-      els = sapply(pres, xmlValue)
-    }
+     # div1 = getNodeSet(doc, "//div[@class='Section1']")
+    #  pres = getNodeSet(div1[[1]], "//pre")
+    #  els = sapply(pres, xmlValue)
+    #  print (year)
+    #  print (url)
+  #  }
     else if (year == 1999) {
       # Get preformatted text from <pre> elements
       pres = getNodeSet(doc, "//pre")
       txt = xmlValue(pres[[1]])
       els = strsplit(txt, "\n")[[1]]   
+      print(year)
     } 
     else {
       # Get preformatted text from <pre> elements
       pres = getNodeSet(doc, "//pre")
       txt = xmlValue(pres[[1]])
       els = strsplit(txt, "\r\n")[[1]]   
+      print(year)
     } 
     
     if (is.null(file)) return(els)
-      # Write the lines as a text file.
-      writeLines(els, con = file)
+    # Write the lines as a text file.
+    writeLines(els, con = file)
   }
-
 
 years = 1999:2012
 womenTables = mapply(extractResTable, url = urls, year = years)
 names(womenTables) = years
-sapply(menTables, length)
+sapply(womenTables, length)
 
 #womenTables = mapply(extractResTable, url = urls, 
 #                       year = years, sex = rep("female", 14))
@@ -78,7 +80,4 @@ sapply(menTables, length)
 #sapply(womenTables, length)
 
 
-save(menTables, file = "CBMenTextTables.rda")
-
-To access records:
-  menTables$’2009’
+save(womenTables, file = "CBMenTextTables.rda")
