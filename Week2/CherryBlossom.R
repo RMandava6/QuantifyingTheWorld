@@ -1,4 +1,7 @@
 library(XML)
+library (plyr)  
+library(gdata)
+
 ubase = "http://www.cherryblossom.org/"
 womenURLs = 
   c("results/1999/cb99f.html", "results/2000/Cb003f.htm", "results/2001/oof_f.html",
@@ -40,15 +43,6 @@ extractResTable =
       els = strsplit(txt, "\r\n")[[1]]
       print(year)
     }
-    #else if (year == 2009 & sex == "female") {
-      # Get preformatted text from <div class="Section1"> element
-      # Each line of results is in a <pre> element
-     # div1 = getNodeSet(doc, "//div[@class='Section1']")
-    #  pres = getNodeSet(div1[[1]], "//pre")
-    #  els = sapply(pres, xmlValue)
-    #  print (year)
-    #  print (url)
-  #  }
     else if (year == 1999) {
       # Get preformatted text from <pre> elements
       pres = getNodeSet(doc, "//pre")
@@ -66,7 +60,7 @@ extractResTable =
     
     if (is.null(file)) return(els)
     # Write the lines as a text file.
-    writeLines(els, con = file)
+      writeLines(els, con = file)
   }
 
 years = 1999:2012
@@ -74,10 +68,35 @@ womenTables = mapply(extractResTable, url = urls, year = years)
 names(womenTables) = years
 sapply(womenTables, length)
 
-#womenTables = mapply(extractResTable, url = urls, 
-#                       year = years, sex = rep("female", 14))
-#names(womenTables) = years
-#sapply(womenTables, length)
+
+save(womenTables, file = "/Users/ramya/Desktop/CBMenTextTables.rda")
+
+capture.output(womenTables, file = "CBWomenTextTables4.xls")
 
 
-save(womenTables, file = "CBMenTextTables.rda")
+df <- ldply (womenTables, data.frame)
+df1 <- df
+
+df1 <- df1[-c(0:4), ]
+
+colnames(df1) <- c("YEAR","PLACE","DIV /TOT","NAME", "AGE", "HOMETOWN" , "TIME", "PACE")
+
+
+myData = read.csv("/Users/ramya/Desktop/DataFinal.csv", header = TRUE, sep = ",")
+
+dataFinal <- na.omit(myData)
+
+
+dfData <- ldply (dataFinal, data.frame)
+colnames(dfData) <- c("Year", "Age")
+
+dfData$Year <- as.numeric(substring(dfData$Year, 2))
+
+as.numeric()
+
+#QQ Plot of Ages
+
+#Box Plots
+boxplot(Age~Year, data=dfData, main="Ages over Years - Running stats", 
+        xlab="Years", ylab="Ages")
+
