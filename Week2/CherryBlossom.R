@@ -1,6 +1,8 @@
 library(XML)
 library (plyr)  
 library(gdata)
+library(ggplot2)
+library(gridExtra)
 
 ubase = "http://www.cherryblossom.org/"
 womenURLs = 
@@ -82,7 +84,7 @@ df1 <- df1[-c(0:4), ]
 colnames(df1) <- c("YEAR","PLACE","DIV /TOT","NAME", "AGE", "HOMETOWN" , "TIME", "PACE")
 
 
-myData = read.csv("/Users/ramya/Desktop/DataFinal.csv", header = TRUE, sep = ",")
+myData = read.csv("/Users/ramya/Documents/GitHub/QuantifyingTheWorld_CS1/Week2/data/DataFinal2.csv", header = TRUE, sep = ",")
 
 dataFinal <- na.omit(myData)
 
@@ -92,11 +94,35 @@ colnames(dfData) <- c("Year", "Age")
 
 dfData$Year <- as.numeric(substring(dfData$Year, 2))
 
-as.numeric()
 
-#QQ Plot of Ages
 
 #Box Plots
 boxplot(Age~Year, data=dfData, main="Ages over Years - Running stats", 
         xlab="Years", ylab="Ages")
 
+
+#simple qq plot
+#require(gridExtra)
+for (i in 1999:2012) {
+  temp <- subset(dfData, dfData$Year == i)
+  head(temp)
+  plot[i] = qqnorm(temp$Age, pch = 1, frame = FALSE, main = i)
+  line[i] = qqline(temp$Age, col = "steelblue", lwd = 2)
+}
+
+#Density Plots
+d <- density(dfData$Age) # returns the density data 
+plot(d) # plots the results
+
+
+options(repr.plot.width=10, repr.plot.height=8)
+
+#merged$year <- as.character(merged$year)
+
+age.d = ggplot(dfData, aes(dfData$Age, fill = factor(dfData$Year))) + geom_density(col=NA, alpha=0.15) + theme_light() +
+  
+  scale_x_continuous(breaks = pretty(dfData$Age, n = 10))+
+  
+  ggtitle("Density plot of Age by Year")
+
+age.d
