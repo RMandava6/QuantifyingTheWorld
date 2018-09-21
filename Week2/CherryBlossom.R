@@ -132,6 +132,6 @@ summary(dfData)
 summary(myData)
 
 #Histogram
-hist(dfData$Age)
+hist(dfData$Age, main="Histogram for Ages for years 1999:2012", xlab="Age")
 
 
