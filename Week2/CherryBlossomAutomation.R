@@ -57,9 +57,9 @@ extractVariables =
     invisible(Values)
   }
 
-wfilenames = paste("/Users/ramya/Documents/GitHub/QuantifyingTheWorld_CS1/Week2/data/", 1999:2000, ".txt", sep = "")
+wfilenames = paste("/Users/ramya/Documents/GitHub/QuantifyingTheWorld_CS1/Week2/data/", 1999:2002, ".txt", sep = "")
 womenFiles = lapply(wfilenames, readLines)
-names(womenFiles) = 1999:2000
+names(womenFiles) = 1999:2002
 
 womenResMat = lapply(womenFiles, extractVariables)
 length(womenResMat)

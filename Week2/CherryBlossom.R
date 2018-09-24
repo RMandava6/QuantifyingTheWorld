@@ -86,6 +86,9 @@ colnames(df1) <- c("YEAR","PLACE","DIV /TOT","NAME", "AGE", "HOMETOWN" , "TIME",
 
 myData = read.csv("/Users/ramya/Documents/GitHub/QuantifyingTheWorld_CS1/Week2/data/DataFinal2.csv", header = TRUE, sep = ",")
 
+df3 <-myData
+df3<- na.omit(myData)
+
 dataFinal <- na.omit(myData)
 
 
@@ -93,7 +96,6 @@ dfData <- ldply (dataFinal, data.frame)
 colnames(dfData) <- c("Year", "Age")
 
 dfData$Year <- as.numeric(substring(dfData$Year, 2))
-
 
 
 #Box Plots
@@ -104,9 +106,9 @@ boxplot(Age~Year, data=dfData, main="Ages over Years - Running stats",
 #simple qq plot
 #require(gridExtra)
 
-par(mfrow = c(7,2), mar=c(1, 4, 2, 4) + 0.5)
+par(mfrow = c(3,2), mar=c(4,4,1,4) + 0.8)
 #"QQ plot of ages for female runners in year:"
-for (i in 1999:2012) {
+for (i in 2005:2012) {
   temp <- subset(dfData, dfData$Year == i)
   head(temp)
   qqnorm(temp$Age, pch = 1, frame = FALSE, main = paste("QQ plot of ages for female runners in year:",i), xlab="Theoretical Quantiles", ylab="Sample Quantiles")
@@ -138,6 +140,15 @@ summary(myData)
 #Histogram
 hist(dfData$Age, main="Histogram on Ages for years 1999:2012", xlab="Age")
 
+par(mfrow = c(7,2), mar=c(4,4,1,4) + 0.8)
+for (i in 1999:2012) {
+  temp <- subset(dfData, dfData$Year == i)
+  head(temp)
+  hist(dfData$Age, main=paste("Histogram on Ages for year:",i), xlab="Age")
+}
+
 # to fix plot.new() margin too big error
 dev.off()
+
+
 
