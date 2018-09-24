@@ -103,12 +103,16 @@ boxplot(Age~Year, data=dfData, main="Ages over Years - Running stats",
 
 #simple qq plot
 #require(gridExtra)
+
+par(mfrow = c(7,2), mar=c(1, 4, 2, 4) + 0.5)
+#"QQ plot of ages for female runners in year:"
 for (i in 1999:2012) {
   temp <- subset(dfData, dfData$Year == i)
   head(temp)
-  qqnorm(temp$Age, pch = 1, frame = FALSE, main = i)
+  qqnorm(temp$Age, pch = 1, frame = FALSE, main = paste("QQ plot of ages for female runners in year:",i), xlab="Theoretical Quantiles", ylab="Sample Quantiles")
   qqline(temp$Age, col = "steelblue", lwd = 2)
 }
+dev.off()
 
 #Density Plots
 d <- density(dfData$Age) # returns the density data 
@@ -123,7 +127,7 @@ age.d = ggplot(dfData, aes(dfData$Age, fill = factor(dfData$Year))) + geom_densi
   
   scale_x_continuous(breaks = pretty(dfData$Age, n = 20))+
   
-  ggtitle("Density plot of Age by Year")
+  ggtitle("Density plot of Age by Year") + xlab("Ages of female runners")
 
 age.d
 
@@ -132,6 +136,8 @@ summary(dfData)
 summary(myData)
 
 #Histogram
-hist(dfData$Age, main="Histogram for Ages for years 1999:2012", xlab="Age")
+hist(dfData$Age, main="Histogram on Ages for years 1999:2012", xlab="Age")
 
+# to fix plot.new() margin too big error
+dev.off()
 
