@@ -123,8 +123,6 @@ plot(d) # plots the results
 
 options(repr.plot.width=10, repr.plot.height=8)
 
-#merged$year <- as.character(merged$year)
-
 age.d = ggplot(dfData, aes(dfData$Age, fill = factor(dfData$Year))) + geom_density(col=NA, alpha=0.15) + theme_light()+
   
   scale_x_continuous(breaks = pretty(dfData$Age, n = 20))+

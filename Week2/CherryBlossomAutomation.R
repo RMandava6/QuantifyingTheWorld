@@ -4,10 +4,10 @@ library(gdata)
 library(ggplot2)
 library(gridExtra)
 
-w2012 = read.table(file="/Users/ramya/Documents/GitHub/QuantifyingTheWorld_CS1/Week2/data/2012.txt", skip = 8)
+#w2012 = read.table(file="/Users/ramya/Documents/GitHub/QuantifyingTheWorld_CS1/Week2/data/2012.txt", skip = 8)
 
-els = readLines("/Users/ramya/Documents/GitHub/QuantifyingTheWorld_CS1/Week2/data/2001.txt")
-els[1:20]
+#els = readLines("/Users/ramya/Documents/GitHub/QuantifyingTheWorld_CS1/Week2/data/2001.txt")
+#els[1:20]
 
 findColLocs = function(spacerRow) {
   
