@@ -1170,11 +1170,16 @@ head(sampleDF)
 
 #To remove error: 'getCharCE' must be called on a CHARSXP
 #Installing packages Rcpp, RcppParallel, digest
-Sys.setlocale("LC_ALL", "C")
-library(Rcpp)
-library(RcppParallel)
-library(digest)
-dev.off()
+#Sys.setlocale("LC_ALL", "C")
+#library(Rcpp)
+#library(RcppParallel)
+#library(digest)
+#dev.off()
+
+
+emailStruct1 = emailStruct
+emailStruct[[32]] <- NULL
+
 emailDF = createDerivedDF(emailStruct)
 dim(emailDF)
 
