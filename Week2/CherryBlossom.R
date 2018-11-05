@@ -1,8 +1,6 @@
 library(XML)
 library (plyr)  
 library(gdata)
-library(ggplot2)
-library(gridExtra)
 
 ubase = "http://www.cherryblossom.org/"
 womenURLs = 
@@ -83,11 +81,9 @@ df1 <- df1[-c(0:4), ]
 
 colnames(df1) <- c("YEAR","PLACE","DIV /TOT","NAME", "AGE", "HOMETOWN" , "TIME", "PACE")
 
-
-myData = read.csv("/Users/ramya/Documents/GitHub/QuantifyingTheWorld_CS1/Week2/data/DataFinal2.csv", header = TRUE, sep = ",")
-
-df3 <-myData
-df3<- na.omit(myData)
+setwd(getwd())
+getwd()
+myData = read.csv("./week2/data/DataFinal.csv", header = TRUE, sep = ",")
 
 dataFinal <- na.omit(myData)
 
@@ -97,56 +93,13 @@ colnames(dfData) <- c("Year", "Age")
 
 dfData$Year <- as.numeric(substring(dfData$Year, 2))
 
+as.numeric()
+
+#QQ Plot of Ages
 
 #Box Plots
 boxplot(Age~Year, data=dfData, main="Ages over Years - Running stats", 
         xlab="Years", ylab="Ages")
 
 
-#simple qq plot
-#require(gridExtra)
-
-par(mfrow = c(3,2), mar=c(4,4,1,4) + 0.8)
-#"QQ plot of ages for female runners in year:"
-for (i in 2005:2012) {
-  temp <- subset(dfData, dfData$Year == i)
-  head(temp)
-  qqnorm(temp$Age, pch = 1, frame = FALSE, main = paste("QQ plot of ages for female runners in year:",i), xlab="Theoretical Quantiles", ylab="Sample Quantiles")
-  qqline(temp$Age, col = "steelblue", lwd = 2)
-}
-dev.off()
-
-#Density Plots
-d <- density(dfData$Age) # returns the density data 
-plot(d) # plots the results
-
-
-options(repr.plot.width=10, repr.plot.height=8)
-
-age.d = ggplot(dfData, aes(dfData$Age, fill = factor(dfData$Year))) + geom_density(col=NA, alpha=0.15) + theme_light()+
-  
-  scale_x_continuous(breaks = pretty(dfData$Age, n = 20))+
-  
-  ggtitle("Density plot of Age by Year") + xlab("Ages of female runners")
-
-age.d
-
-#Summary Stats
-summary(dfData)
-summary(myData)
-
-#Histogram
-hist(dfData$Age, main="Histogram on Ages for years 1999:2012", xlab="Age")
-
-par(mfrow = c(7,2), mar=c(4,4,1,4) + 0.8)
-for (i in 1999:2012) {
-  temp <- subset(dfData, dfData$Year == i)
-  head(temp)
-  hist(dfData$Age, main=paste("Histogram on Ages for year:",i), xlab="Age")
-}
-
-# to fix plot.new() margin too big error
-dev.off()
-
-
-
+qqnorm(data=dfData, dfData.age~year, pch=1, frame=FALSE)

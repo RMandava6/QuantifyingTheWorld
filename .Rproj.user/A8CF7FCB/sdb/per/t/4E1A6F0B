@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "2nd commit in test file\nthis is test file",
+    "created" : 1536453693216.000,
+    "dirty" : false,
+    "encoding" : "ASCII",
+    "folds" : "",
+    "hash" : "2855290231",
+    "id" : "4E1A6F0B",
+    "lastKnownWriteTime" : 1536453711,
+    "last_content_update" : 1536453711643,
+    "path" : "~/Documents/Ramesh/SMU/GitRepos/QTW/QuantifyingTheWorld_CS6/Data/ramesh test file",
+    "project_path" : "Data/ramesh test file",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "text"
+}

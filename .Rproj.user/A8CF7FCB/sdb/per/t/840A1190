@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "library(XML)\nlibrary (plyr)  \nlibrary(gdata)\n\nubase = \"http://www.cherryblossom.org/\"\nwomenURLs = \n  c(\"results/1999/cb99f.html\", \"results/2000/Cb003f.htm\", \"results/2001/oof_f.html\",\n    \"results/2002/ooff.htm\", \"results/2003/CB03-F.HTM\",\n    \"results/2004/women.htm\", \"results/2005/CB05-F.htm\", \n    \"results/2006/women.htm\", \"results/2007/women.htm\", \n    \"results/2008/women.htm\", \"results/2009/09cucb-F.htm\",\n    \"results/2010/2010cucb10m-f.htm\", \n    \"results/2011/2011cucb10m-f.htm\",\n    \"results/2012/2012cucb10m-f.htm\")\n\n# http://www.cherryblossom.org/results/2000/Cb003f.htm\n#http://www.cherryblossom.org/results/2009/09cucb-F.htm\n\nurls = paste(ubase, womenURLs, sep = \"\")\n\nurls[1:3]\n\nurls\n\nextractResTable =\n  # takes a list of websites from the cherry blossom race\n  # a list of years corresponding to the year the result is for\n  # and the gender of the participant\n  # Retrieve data from web site, \n  # find the preformatted text,\n  # and write lines or return as a character vector.\n  # returns a list of strings corrsponding to lines in the web url\n  function(url = \"http://www.cherryblossom.org/results/2009/09cucb-F.htm\",\n           year = 1999, sex = \"female\", file = NULL)\n  {\n    doc = htmlParse(url)\n    \n    if (year == 2000) {\n      # Get preformatted text from 4th font element\n      # The top file is ill formed so the <pre> search doesn't work.\n      ff = getNodeSet(doc, \"//font\")\n      txt = xmlValue(ff[[4]])\n      els = strsplit(txt, \"\\r\\n\")[[1]]\n      print(year)\n    }\n    else if (year == 1999) {\n      # Get preformatted text from <pre> elements\n      pres = getNodeSet(doc, \"//pre\")\n      txt = xmlValue(pres[[1]])\n      els = strsplit(txt, \"\\n\")[[1]]   \n      print(year)\n    } \n    else {\n      # Get preformatted text from <pre> elements\n      pres = getNodeSet(doc, \"//pre\")\n      txt = xmlValue(pres[[1]])\n      els = strsplit(txt, \"\\r\\n\")[[1]]   \n      print(year)\n    } \n    \n    if (is.null(file)) return(els)\n    # Write the lines as a text file.\n      writeLines(els, con = file)\n  }\n\nyears = 1999:2012\nwomenTables = mapply(extractResTable, url = urls, year = years)\nnames(womenTables) = years\nsapply(womenTables, length)\n\n\nsave(womenTables, file = \"/Users/ramya/Desktop/CBMenTextTables.rda\")\n\ncapture.output(womenTables, file = \"CBWomenTextTables4.xls\")\n\n\ndf <- ldply (womenTables, data.frame)\ndf1 <- df\n\ndf1 <- df1[-c(0:4), ]\n\ncolnames(df1) <- c(\"YEAR\",\"PLACE\",\"DIV /TOT\",\"NAME\", \"AGE\", \"HOMETOWN\" , \"TIME\", \"PACE\")\n\nsetwd(getwd())\ngetwd()\nmyData = read.csv(\"./week2/data/DataFinal.csv\", header = TRUE, sep = \",\")\n\ndataFinal <- na.omit(myData)\n\n\ndfData <- ldply (dataFinal, data.frame)\ncolnames(dfData) <- c(\"Year\", \"Age\")\n\ndfData$Year <- as.numeric(substring(dfData$Year, 2))\n\nas.numeric()\n\n#QQ Plot of Ages\n\n#Box Plots\nboxplot(Age~Year, data=dfData, main=\"Ages over Years - Running stats\", \n        xlab=\"Years\", ylab=\"Ages\")\n\n\nqqnorm(data=dfData, dfData.age~year, pch=1, frame=FALSE)\n",
+    "created" : 1537495228485.000,
+    "dirty" : false,
+    "encoding" : "ASCII",
+    "folds" : "",
+    "hash" : "2634204077",
+    "id" : "840A1190",
+    "lastKnownWriteTime" : 1538926975,
+    "last_content_update" : 1538926975613,
+    "path" : "~/Documents/Ramesh/SMU/GitRepos/QTW/QuantifyingTheWorld_CS6/Week2/CherryBlossom.R",
+    "project_path" : "Week2/CherryBlossom.R",
+    "properties" : {
+    },
+    "relative_order" : 8,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

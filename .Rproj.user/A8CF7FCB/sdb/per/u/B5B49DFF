@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "set.seed(42)\ncatA <- factor(c(\"m100\", \"m500\", \"m1000\", \"m2000\", \"m3000\", \"m5000\"))\ncatB <- factor(20:28)\nsamples <- 100\nrsample <- function(v) v[ceiling(runif(samples, max=length(v)))]\nTab <- data.frame(catA = rsample(catA),\n                  catB = rsample(catB),\n                  valA = rnorm(samples, 150, 8),\n                  valB = pmin(1,pmax(0,rnorm(samples, 0.5, 0.3))))\nop <- par(mfrow = c(2,2),\n          oma = c(5,4,0,0) + 0.1,\n          mar = c(0,0,1,1) + 0.1)\nfor (i in 0:3) {\n  x <- Tab[[1 + i %% 2]]\n  plot(x, Tab[[3 + i %/% 2]], axes = FALSE)\n  axis(side = 1,\n       at=1:nlevels(x),\n       labels = if (i %/% 2 == 1) levels(x) else FALSE)\n  axis(side = 2, labels = (i %% 2 == 0))\n  box(which = \"plot\", bty = \"l\")\n}\ntitle(xlab = \"Some Categories\",\n      ylab = \"Some Values\",\n      outer = TRUE, line = 3)\npar(op)",
+    "created" : 1537745996764.000,
+    "dirty" : true,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "2161887891",
+    "id" : "B5B49DFF",
+    "lastKnownWriteTime" : 0,
+    "last_content_update" : 1537746058911,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled2"
+    },
+    "relative_order" : 10,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
